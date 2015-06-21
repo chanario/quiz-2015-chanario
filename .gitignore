@@ -46,3 +46,4 @@ Temporary Items
 # Archivos de modulos de nodejs
 node_modules
 npm-debug.log
+quiz.sqlite
