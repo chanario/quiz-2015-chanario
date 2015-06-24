@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 //Renderizar el layout.ejs y completar las vistas.
 var partials = require('express-partials');
 
+// Para editar las preguntas
+var methodOverride = require('method-override');
 
 var routes = require('./routes/index');
 
@@ -26,6 +28,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+
+// Para editar las preguntas
+app.use(methodOverride('_method'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
