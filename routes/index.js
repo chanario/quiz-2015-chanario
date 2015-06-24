@@ -18,6 +18,10 @@ router.get('/quizes',                      quizController.index);
 router.get('/quizes/:quizId(\\d+)',        quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 
+// Definición de rutas para  crear una nueva pregunta y respuesta
+router.get('/quizes/new',                  quizController.new);
+router.post('/quizes/create',              quizController.create);
+
 //GET author
 router.get('/author/creditos', authorController.creditos);
 
