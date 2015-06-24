@@ -1,5 +1,10 @@
 <table>
-  <% var i; for (i=0; i < quizes.length; i++) { %>        
+  <% var i; for (i=0; i < quizes.length; i++) { %>
      <tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
   <% } %>
 </table>
+
+<form class="form-horizontal" methods="get" action="/quizes">
+  <input type="text" name="search" id="search" class="form-control" value="<%= search ? search : 'Vacío: lista todas' %>" />
+  <button type="submit" class="form-boton">Filtrar</button>
+</form>

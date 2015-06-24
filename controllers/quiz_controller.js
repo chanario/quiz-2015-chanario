@@ -13,11 +13,21 @@ exports.load = function(req, res, next, quizId) {
   ).catch(function(error) { next(error);});
 };
 
-// GET /quizes
+// GET /quizes con listado de preguntas filtradas
 exports.index = function(req, res) {
-  models.Quiz.findAll().then(
+  // Si es la primera vez req.query.search será nulo o undefined, entonces lo colocamos a nulo,
+  // sino formamos el nuevo argumento de la nueva query a realizar
+  var miQueryArg= req.query.search ? "%" + req.query.search.replace(/ +/g, "%") + "%" : '';
+  var miQuery= miQueryArg
+                ?
+                  {where: ["pregunta like ?", miQueryArg], order: 'pregunta ASC'}
+                :
+                  ''
+                ;
+
+  models.Quiz.findAll(miQuery).then(
     function(quizes) {
-      res.render('quizes/index.ejs', { quizes: quizes});
+      res.render('quizes/index.ejs', { quizes: quizes, search: req.query.search });
     }
   ).catch(function(error) { next(error);})
 };
