@@ -78,9 +78,9 @@ exports.create = function(req, res) {
 //};
 
 
-// Esto es lo que se propone en el formamos
+// Esto es lo que se propone en el foro
 
-  var errors = quiz.validate();//ya qe el objeto errors no tiene then(
+  var errors = quiz.validate();//ya que el objeto errors no tiene then(
 
   if (errors) {
     var i=0;
