@@ -30,19 +30,19 @@ exports.create = function(req, res) {
 
 
 // Esto es lo que habría que adaptar:
-var errors = comment.validate(); //ya que el objeto errors no tiene then(
+  var errors = comment.validate(); //ya que el objeto errors no tiene then(
 
-if (errors) {
-  var i=0;
-  var errores= new Array(); //se convierte en [] con la propiedad message por compatibilida con layout
+  if (errors) {
+    var i=0;
+    var errores= new Array(); //se convierte en [] con la propiedad message por compatibilida con layout
 
-  for (var prop in errors) errores[i++]= { message: errors[prop] };
+    for (var prop in errors) errores[i++]= { message: errors[prop] };
 
-  res.render('comments/new.ejs', {comment: comment, errors: err.errors});
+    res.render('comments/new.ejs', {comment: comment, errors: err.errors});
 
-} else {
-    comment  // save: guarda en DB campos pregunta, respuesta y tema de quiz
-      .save()
-      .then( function(){ res.redirect('/quizes/'+req.params.quizId)}); // res.redirect: Redirección HTTP a lista de preguntas
-  }
+  } else {
+      comment  // save: guarda en DB campos pregunta, respuesta y tema de quiz
+        .save()
+        .then( function(){ res.redirect('/quizes/'+req.params.quizId)}); // res.redirect: Redirección HTTP a lista de preguntas
+    }
 };
