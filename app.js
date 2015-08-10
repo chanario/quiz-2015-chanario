@@ -50,6 +50,27 @@ app.use(
 
       // Hacer visible req.session en las vistas
       res.locals.session = req.session;
+
+      // Desconectar auto-logout de sesion si permanece inactivo mas de dos minutos
+      if (req.session.instanteInicioSesion) {
+        var tiempoActual= new Date().getTime();
+        var tiempoPasado= tiempoActual - req.session.instanteInicioSesion;
+
+        console.log ("tiempoActual: " + tiempoActual);
+        console.log("req.session.instanteInicioSesion: " + req.session.instanteInicioSesion);
+        console.log("timepoPasado: " + tiempoPasado);
+        console.log ("autoLogout: " + req.session.autoLogout);
+
+        if (tiempoPasado > (2 * 60 * 1000)) {
+          delete req.session.instanteInicioSesion;
+          req.session.autoLogout = true;
+          console.log ("autoLogout: " + req.session.autoLogout);
+          res.redirect("/logout");
+        }
+        else {
+          req.session.instanteInicioSesion = tiempoActual;
+        }
+      }
       next();
     }
   );

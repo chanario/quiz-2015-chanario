@@ -1,5 +1,12 @@
 <h2>Login</h2>
 
+<% if (session.autoLogout==true && session.instanteInicioSesion !="undefined") { %>
+  <br/>¡ +2 m inactivo: Vuelva a autenticarse !
+  <br/>
+  <br/>
+  <% session.autoLogout = false %>
+<% } %>
+
 <form method='POST' action='/login'>
 
   <div class="field">

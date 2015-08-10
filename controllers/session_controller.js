@@ -34,6 +34,10 @@ exports.create = function(req, res) {
           // La sesión se define por la existencia de:    req.session.user
           req.session.user = {id:user.id, username:user.username};
 
+          // control de desconexiones de sesiones si permanece inactivo más de dos minutos
+          req.session.instanteInicioSesion = new Date().getTime();
+          req.session.autoLogout= false;
+
           res.redirect(req.session.redir.toString());// redirección a path anterior a login
       }
     );
@@ -42,5 +46,8 @@ exports.create = function(req, res) {
 // DELETE /logout   -- Destruir sesion
 exports.destroy = function(req, res) {
     delete req.session.user;
-    res.redirect(req.session.redir.toString()); // redirect a path anterior a login
+
+    // Si hay que hacer el auto-logout redireccionar a /login, sino redireccionarla como antes (path anterior a login)
+    if (req.session.autoLogout) res.redirect("/login");
+    else res.redirect(req.session.redir.toString());
 };
